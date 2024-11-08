@@ -1,15 +1,15 @@
 import { PATH_DB } from '../constants/contacts.js';
-import { promises as fs } from 'fs';
+import fs from 'node:fs/promises';
 
+/**
+ * @param {Array} updatedContacts
+ */
 export const writeContacts = async (updatedContacts) => {
   try {
-    const data = JSON.stringify(updatedContacts, null, 2);
-
-    await fs.writeFile(PATH_DB, data, 'utf-8');
-    console.log('Contacts have been successfully updated.');
+    const formattedData = JSON.stringify(updatedContacts, null, 2);
+    await fs.writeFile(PATH_DB, formattedData);
+    console.log("Contacts saved successfully in formatted form!");
   } catch (error) {
-    console.error('Error writing contacts:', error);
-    throw error;
+    console.error("Error writing to file:", error);
   }
 };
-

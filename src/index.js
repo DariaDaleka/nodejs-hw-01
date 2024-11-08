@@ -1,6 +1,16 @@
-import path from "node:path";
-import * as fs from "node:fs/promises"
+import { readContacts } from './utils/readContacts.js';
+import { writeContacts } from './utils/writeContacts.js';
 
-const FILE_PATH = path.resolve("db.json")
+const init = async () => {
+  try {
+    const contacts = await readContacts();
+    console.log("contact list:", contacts);
 
+    await writeContacts(contacts);
+  } catch (error) {
+    console.error("Error working with contacts:", error);
+  }
+};
+
+init();
 
